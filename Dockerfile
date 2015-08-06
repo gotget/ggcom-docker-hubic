@@ -25,7 +25,6 @@ ENV			DEBIAN_FRONTEND	noninteractive
 
 RUN			apt-get -y update && apt-get -y install \
 				curl \
-				encfs \
 				gcc \
 				git \
 				libcurl4-openssl-dev \
@@ -36,9 +35,7 @@ RUN			apt-get -y update && apt-get -y install \
 				libxml2-dev \
 				make \
 				nano \
-				pkg-config \
-				rsync \
-				sshfs
+				pkg-config
 
 USER		root
 WORKDIR		/root
