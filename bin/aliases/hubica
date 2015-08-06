@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+: <<'!COMMENT'
+
+GGCOM - Docker - hubiC v201508061426
+Louis T. Getterman IV (@LTGIV)
+www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
+
+!COMMENT
+
+# Attach
+docker attach $(docker ps --quiet --no-trunc --filter 'name=hubic')

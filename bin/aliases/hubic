@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+: <<'!COMMENT'
+
+GGCOM - Docker - hubiC v201508061426
+Louis T. Getterman IV (@LTGIV)
+www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
+
+!COMMENT
+
+# Interactive
+docker run --name='hubic' --cap-add SYS_ADMIN --device /dev/fuse --interactive --tty --volume="$HOME/ggcom/ggcom-docker-hubic/config:/hubic" hubic "$@"
+
+echo;
+echo "Note: If you've fully exited your hubiC container, use 'hubics' to attempt to stop and remove the container."
