@@ -1,4 +1,4 @@
-# GGCOM - Docker - hubiC v201508061247
+# GGCOM - Docker - hubiC v201508061334
 # Louis T. Getterman IV (@LTGIV)
 # www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
 #
@@ -8,9 +8,9 @@
 # $] docker build --tag=hubic .
 #
 # Run:
-# $] docker run --cap-add SYS_ADMIN --device /dev/fuse --interactive --tty --volume="$PWD/hubicconfig:/hubic" hubic
+# $] docker run --cap-add SYS_ADMIN --device /dev/fuse --interactive --tty --volume="$HOME/ggcom/ggcom-docker-hubic/config:/hubic" hubic
 #
-# $] docker run --cap-add SYS_ADMIN --device /dev/fuse --interactive --tty --volume="$PWD/hubicconfig:/hubic" hubic "echo 'I will edit my credentials, connect, list the volume, and then disconnect.'; config; hubic; ls -l hubic/; uhubic;"
+# $] docker run --cap-add SYS_ADMIN --device /dev/fuse --interactive --tty --volume="$HOME/ggcom/ggcom-docker-hubic/config:/hubic" hubic "config; hubic; ls -l hubic/; uhubic;"
 #
 # Thanks:
 #
@@ -25,6 +25,7 @@ ENV			DEBIAN_FRONTEND	noninteractive
 
 RUN			apt-get -y update && apt-get -y install \
 				curl \
+				encfs \
 				gcc \
 				git \
 				libcurl4-openssl-dev \
