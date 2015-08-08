@@ -1,4 +1,4 @@
-# GGCOM - Docker - hubiC v201508061334
+# GGCOM - Docker - hubiC v201508081051
 # Louis T. Getterman IV (@LTGIV)
 # www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
 #
@@ -25,6 +25,7 @@ ENV			DEBIAN_FRONTEND	noninteractive
 
 RUN			apt-get -y update && apt-get -y install \
 				curl \
+				encfs \
 				gcc \
 				git \
 				libcurl4-openssl-dev \
@@ -35,7 +36,9 @@ RUN			apt-get -y update && apt-get -y install \
 				libxml2-dev \
 				make \
 				nano \
-				pkg-config
+				pkg-config \
+				rsync \
+				sshfs
 
 USER		root
 WORKDIR		/root

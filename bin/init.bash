@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 : <<'!COMMENT'
 
-GGCOM - Docker - hubiC v201508061247
+GGCOM - Docker - hubiC v201508081051
 Louis T. Getterman IV (@LTGIV)
 www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
 
@@ -10,7 +10,13 @@ Thanks:
 bash - How to keep quotes in args? - Stack Overflow - Thank you Dennis Williamson!
 http://stackoverflow.com/a/1669493
 
+To-do:
+* Need to add container shutdown as well.
+* Parse /hubic/volumes.txt and list it at launch
+
 !COMMENT
+
+################################################################################
 
 # Attempt to keep quotes in arguments passed to Docker, which is then passed to here.
 cmdrun=''
@@ -25,12 +31,18 @@ do
 done
 unset i
 
+################################################################################
+
 # Did anything get mounted?
 if [ ! -f /hubic/credentials.txt ]; then
 	echo;
-    echo "hubiC credentials not mounted!  Exiting." >&2
+	echo "hubiC credentials not mounted!  Exiting." >&2
+	read -t 5 -n 1 -p "$prompt";
+	echo;
 	exit 1;
 fi
+
+################################################################################
 
 # Did they forget the proper commands?
 testCmd=`umount /mnt/hubic 2>&1`
@@ -74,7 +86,7 @@ config - edit your hubiC configuration.
 
 source .bashrc
 
-if [ ! -z "$cmdrun" ]; then
+if [ ! -z "$(echo -e "${cmdrun}" | tr -d '[[:space:]]')" ]; then
 	echo '----------------------------------------';
 	echo "Running additional commands:"
 	echo "$cmdrun";
@@ -85,5 +97,7 @@ if [ ! -z "$cmdrun" ]; then
 	echo '----------------------------------------';
 	echo;
 fi
+
+################################################################################
 
 /usr/bin/env bash
