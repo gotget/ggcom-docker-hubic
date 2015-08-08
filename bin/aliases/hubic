@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 : <<'!COMMENT'
 
-GGCOM - Docker - hubiC v201508081051
+GGCOM - Docker - hubiC v201508081132
 Louis T. Getterman IV (@LTGIV)
 www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
 
@@ -21,12 +21,10 @@ argPassed="$@"
 detached=false
 argBulk='--cap-add SYS_ADMIN --device /dev/fuse --interactive --tty'
 case "$1" in
-	d|detach|detached)
-		argBulk="${argBulk} --detach"
+	detached|detach|d)
 		detached=true
-		argPassedN="${argPassed[@]:1}"
-		argPassed="$argPassedN"
-		unset argPassedN
+		argBulk="${argBulk} --detach"
+		argPassed="${@:2}"
 		;;
 esac
 

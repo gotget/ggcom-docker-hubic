@@ -1,4 +1,4 @@
-# GGCOM - Docker - hubiC v201508081051
+# GGCOM - Docker - hubiC v201508081132
 # Louis T. Getterman IV (@LTGIV)
 # www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
 #
@@ -25,6 +25,7 @@ ENV			DEBIAN_FRONTEND	noninteractive
 
 RUN			apt-get -y update && apt-get -y install \
 				curl \
+				duply \
 				encfs \
 				gcc \
 				git \
@@ -37,6 +38,7 @@ RUN			apt-get -y update && apt-get -y install \
 				make \
 				nano \
 				pkg-config \
+				rsnapshot \
 				rsync \
 				sshfs
 
