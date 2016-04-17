@@ -141,11 +141,11 @@ Notes:
  - `hsync` is an alias to `rsync` with a long list of options for hubiC compatibility, that was setup with this Docker container, and resides in `~/.bashrc` inside of the Docker container.
  - Many extra utilities are packaged into the container:
 	 - `cURL` - command-line tool for transferring data using various protocols.
-	 - `Duply` (simple duplicity) - a frontend that simplifies the use of Duplicity.
+	 - `Duply` (simple `duplicity`) - a frontend that simplifies the use of `Duplicity`.
 		 - (requires, and thus, includes `Duplicity`, which provides an encrypted, digitally signed, versioned, remote backup of files requiring little of a remote server)
 	 - `EncFS` - FUSE-based cryptographic filesystem.
 	 - `Nano` - a text editor for Unix-like computing systems or operating environments using a command line interface.
-	 - `rsnapshot` - a filesystem snapshot utility based on rsync (and similar to Duplicity, but with less built-in security, and geared more towards trusted environments).
+	 - `rsnapshot` - a filesystem snapshot utility based on rsync (and similar to `Duplicity`, but with less built-in security, and geared more towards trusted environments).
 	 - `rsync` - a widely-used utility to keep copies of a file on two (or more) computer systems.
 	 - `SSHFS` - SSHFS (SSH Filesystem) is a filesystem client to mount and interact with directories and files located on a remote server or workstation over a normal ssh connection.
  - If you want to use additional utilities inside (e.g. [FMDMS](http://www.opensour.cc/ggcom/start?s%5B%5D=FMDMS#utilities) from [GGCom Bash Utilities](https://github.com/gotget/ggcom-bash-utils/)), mount a volume to `/root/bin/`, as it's set in the container's `$PATH` variable:
