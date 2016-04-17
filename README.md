@@ -95,26 +95,60 @@ Launching a detached container:
         --privileged \
         --name=hubic \
         -v /path/to/hubicfuse.ini:/root/.hubicfuse \
-        -v /media/drive1/:/root/drive1/ \
-        -v /media/drive2/:/root/drive2/ \
-        -v /media/drive3/:/root/drive3/ \
+        -v /media/drive1/:/mnt/drive1/ \
+        -v /media/drive2/:/mnt/drive2/ \
+        -v /media/drive3/:/mnt/drive3/ \
         gotget/hubic
 
 ----------
 
-Entering the detached container and using rsync to copy a file:
+Example: processing raw data and sending it to hubiC:
 ---------------------------------------------------------------
+
+**Enter the hubiC container that's detached and running in the background:**
 
     docker exec -it hubic bash
 
-    hcp \
-      /root/drive1/big-directory/ \
-      /root/hubic/big-directory/
+**Gather a directory's contents together in an uncompressed file:**
 
-**Notes:**
+    cd /mnt/drive3/
+    tar -cvf largeDirectory.tar ./largeDirectory/
 
- - `hcp` is an alias to rsync with a long list of options for hubiC compatibility, that was setup with this Docker container, and resides in `~/.bashrc` inside of the Docker container.
- - If you want to use additional utilities inside, mount a volume to `/root/bin/`, as it's set in the container's `$PATH` variable:
+**Split the archive into segments**
+*(hubiC seems to choke on anything greater than (or equal to?) a Gigabyte, so we'll split the file into a sequence of files that each measure 950 MegaBytes, sans the last file of the sequence which may be smaller)*
+
+    split \
+        --bytes=950M \
+        largeDirectory.tar \
+        largeDirectory.tar.
+(Notice the ending `.`?  This is what separates the name from the sequence that's named as an alphabetical suffix, which would save as: `largeDirectory.tar.aa`, `largeDirectory.tar.ab`, `largeDirectory.tar.ac`, etc.)
+
+**Move split-sequence files to a holding directory:**
+
+    mkdir -pv /mnt/drive3/tmp/
+    mv -iv largeDirectory.tar.* /mnt/drive3/tmp/
+
+**Synchronizing with hubiC:**
+(You can reverse paths if you want to synchronize from hubiC to your host volume)
+
+    hsync \
+      /mnt/drive3/tmp/ \
+      /hubic/largeDirectory-split/
+
+Notes:
+------
+
+ - `hsync` is an alias to `rsync` with a long list of options for hubiC compatibility, that was setup with this Docker container, and resides in `~/.bashrc` inside of the Docker container.
+ - Many extra utilities are packaged into the container:
+	 - `cURL` - command-line tool for transferring data using various protocols.
+	 - `Duply` (simple duplicity) - a frontend that simplifies the use of Duplicity.
+		 - (requires, and thus, includes `Duplicity`, which provides an encrypted, digitally signed, versioned, remote backup of files requiring little of a remote server)
+	 - `EncFS` - FUSE-based cryptographic filesystem.
+	 - `Nano` - a text editor for Unix-like computing systems or operating environments using a command line interface.
+	 - `rsnapshot` - a filesystem snapshot utility based on rsync (and similar to Duplicity, but with less built-in security, and geared more towards trusted environments).
+	 - `rsync` - a widely-used utility to keep copies of a file on two (or more) computer systems.
+	 - `SSHFS` - SSHFS (SSH Filesystem) is a filesystem client to mount and interact with directories and files located on a remote server or workstation over a normal ssh connection.
+ - If you want to use additional utilities inside (e.g. [FMDMS](http://www.opensour.cc/ggcom/start?s%5B%5D=FMDMS#utilities) from [GGCom Bash Utilities](https://github.com/gotget/ggcom-bash-utils/)), mount a volume to `/root/bin/`, as it's set in the container's `$PATH` variable:
 	 - `-v /path/to/utilities/:/root/bin/`
  - Additional documents and notes are on my pet project, "[open-sourcey](https://www.opensour.cc/)"
 

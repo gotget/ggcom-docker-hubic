@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 : <<'!COMMENT'
 
-GGCOM - Docker - hubiC v201604161440
+GGCOM - Docker - hubiC v201604171903
 Louis T. Getterman IV (@LTGIV)
 www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
 
@@ -69,7 +69,7 @@ cat << 'EOF' >> $HOME/.bashrc
 
 export PATH=$HOME/bin:$PATH
 
-alias hcp="rsync \
+alias hsync="rsync \
 --archive \
 --verbose \
 --progress \
