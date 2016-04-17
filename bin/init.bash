@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 : <<'!COMMENT'
 
-GGCOM - Docker - hubiC v201508081051
+GGCOM - Docker - hubiC v201604161440
 Louis T. Getterman IV (@LTGIV)
 www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
 
@@ -11,8 +11,7 @@ bash - How to keep quotes in args? - Stack Overflow - Thank you Dennis Williamso
 http://stackoverflow.com/a/1669493
 
 To-do:
-* Need to add container shutdown as well.
-* Parse /hubic/volumes.txt and list it at launch
+* unmount at container shutdown (see https://stackoverflow.com/questions/32940887/docker-container-shutdown-script)
 
 !COMMENT
 
@@ -34,7 +33,7 @@ unset i
 ################################################################################
 
 # Did anything get mounted?
-if [ ! -f /hubic/credentials.txt ]; then
+if [ ! -f /root/.hubicfuse ]; then
 	echo;
 	echo "hubiC credentials not mounted!  Exiting." >&2
 	read -t 5 -n 1 -p "$prompt";
@@ -50,7 +49,7 @@ if [ $? -ne 0 ]; then
 	case "$testCmd" in
 		*"must be superuser to umount"*)
 			echo;
-			echo "It appears that you forgot to use '--cap-add SYS_ADMIN --device /dev/fuse' when running this container.  Exiting." >&2
+			echo "It appears that you forgot to use '--privileged' when running this container.  Exiting." >&2
 			exit 1;
 			;;
 		*"not mounted"*)
@@ -65,23 +64,46 @@ if [ $? -ne 0 ]; then
 fi
 unset testCmd
 
-################################################### Update $HOME/.bashrc
+########################################################### Update $HOME/.bashrc
 cat << 'EOF' >> $HOME/.bashrc
 
 export PATH=$HOME/bin:$PATH
 
+alias hcp="rsync \
+--archive \
+--verbose \
+--progress \
+--inplace \
+--partial \
+--delete \
+--delete-excluded \
+--no-owner \
+--no-group \
+--no-times \
+--rsh=/usr/bin/ssh \
+--exclude='.DS_Store' \
+--exclude='.git'"
+
 EOF
-###################################################/Update $HOME/.bashrc
+###########################################################/Update $HOME/.bashrc
+
+#################################################################### Mount hubiC
+testCmd=`hubicfuse /mnt/hubic -o noauto_cache,sync_read,allow_other 2>&1`
+if [ $? -ne 0 ]; then
+	echo "An error has occurred with mounting hubiC:" >&2
+	echo "$testCmd" >&2
+	echo "Exiting." >&2
+	exit 1;
+else
+	echo "hubiC has been successfully mounted to /root/hubic/"
+fi
+####################################################################/Mount hubiC
 
 echo "\
 
 You are now inside of the hubiC container with your mounted volumes from your host.
 
-Useful commands:
-
-hubic  - mount your hubiC volume.
-uhubic - umount your hubiC volume.
-config - edit your hubiC configuration.
+`ls -l /root/hubic/`
 ";
 
 source .bashrc
