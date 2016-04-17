@@ -135,6 +135,8 @@ Example: processing raw data and sending it to hubiC:
       /mnt/drive3/tmp/ \
       /hubic/largeDirectory-split/
 
+----------
+
 Notes:
 ------
 
