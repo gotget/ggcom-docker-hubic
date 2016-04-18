@@ -69,6 +69,18 @@ cat << 'EOF' >> $HOME/.bashrc
 
 export PATH=$HOME/bin:$PATH
 
+alias hcp="rsync \
+--archive \
+--verbose \
+--progress \
+--inplace \
+--partial \
+--no-owner \
+--no-group \
+--no-times \
+--rsh=/usr/bin/ssh \
+--exclude='.DS_Store'"
+
 alias hsync="rsync \
 --archive \
 --verbose \
@@ -81,8 +93,7 @@ alias hsync="rsync \
 --no-group \
 --no-times \
 --rsh=/usr/bin/ssh \
---exclude='.DS_Store' \
---exclude='.git'"
+--exclude='.DS_Store'"
 
 EOF
 ###########################################################/Update $HOME/.bashrc

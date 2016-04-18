@@ -150,7 +150,7 @@ Notes:
 	 - `rsnapshot` - a filesystem snapshot utility based on rsync (and similar to `Duplicity`, but with less built-in security, and geared more towards trusted environments).
 	 - `rsync` - a widely-used utility to keep copies of a file on two (or more) computer systems.
 	 - `SSHFS` - SSHFS (SSH Filesystem) is a filesystem client to mount and interact with directories and files located on a remote server or workstation over a normal ssh connection.
- - If you want to use additional utilities inside (e.g. [FMDMS](http://www.opensour.cc/ggcom/start?s%5B%5D=FMDMS#utilities) from [GGCom Bash Utilities](https://github.com/gotget/ggcom-bash-utils/)), mount a volume to `/root/bin/`, as it's set in the container's `$PATH` variable:
+ - If you want to use additional utilities inside (e.g. [FMDMS](https://www.opensour.cc/ggcom/start?s%5B%5D=FMDMS#utilities) from [GGCom Bash Utilities](https://github.com/gotget/ggcom-bash-utils/)), mount a volume to `/root/bin/`, as it's set in the container's `$PATH` variable:
 	 - `-v /path/to/utilities/:/root/bin/`
  - Additional documents and notes are on my pet project, "[open-sourcey](https://www.opensour.cc/)"
 
