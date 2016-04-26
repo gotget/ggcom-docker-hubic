@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 : <<'!COMMENT'
 
-GGCOM - Docker - hubiC v201604171903
+GGCOM - Docker - hubiC v201604260115
 Louis T. Getterman IV (@LTGIV)
 www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
 

@@ -1,4 +1,4 @@
-# GGCOM - Docker - hubiC v201604161440
+# GGCOM - Docker - hubiC v201604260115
 # Louis T. Getterman IV (@LTGIV)
 # www.GotGetLLC.com | www.opensour.cc/ggcom/docker/hubic
 #
@@ -31,7 +31,8 @@ RUN			apt-get -y update && apt-get -y install \
 				pkg-config \
 				rsnapshot \
 				rsync \
-				sshfs
+				sshfs \
+				tree
 
 USER		root
 WORKDIR		/root

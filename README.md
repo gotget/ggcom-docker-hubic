@@ -9,7 +9,7 @@ Build from Dockerfile:
 
     git clone https://github.com/gotget/ggcom-docker-hubic.git
     cd ggcom-docker-hubic
-    docker build -t gotget/hubic .
+    sudo docker build -t gotget/hubic .
 
 __or__
 --
@@ -17,7 +17,7 @@ __or__
 Pull from [Docker Hub](https://hub.docker.com/):
 ------------------------------------------------
 
-    docker pull gotget/hubic
+    sudo docker pull gotget/hubic
 
 ----------
 
@@ -38,8 +38,8 @@ Initializing a credentials file:
 
 **Step 2: Obtain a hubiC access token:**
 
-    docker rm -f hubic
-    docker run \
+    sudo docker rm -f hubic
+    sudo docker run \
         --rm \
         --interactive --tty \
         --name=hubic-init \
@@ -62,7 +62,7 @@ verify_ssl=True
 Testing our setup:
 ------------------
 
-    docker run \
+    sudo docker run \
         --rm \
         --interactive --tty \
         --privileged \
@@ -89,7 +89,7 @@ If a failure occurs, then ideally, you'll receive a specific message indicating 
 Launching a detached container:
 -------------------------------
 
-    docker run \
+    sudo docker run \
         --detach \
         --interactive --tty \
         --privileged \
@@ -107,7 +107,7 @@ Example: processing raw data and sending it to hubiC:
 
 **Enter the hubiC container that's detached and running in the background:**
 
-    docker exec -it hubic bash
+    sudo docker exec -it hubic bash
 
 **Gather a directory's contents together in an uncompressed file:**
 
@@ -150,6 +150,7 @@ Notes:
 	 - `rsnapshot` - a filesystem snapshot utility based on rsync (and similar to `Duplicity`, but with less built-in security, and geared more towards trusted environments).
 	 - `rsync` - a widely-used utility to keep copies of a file on two (or more) computer systems.
 	 - `SSHFS` - SSHFS (SSH Filesystem) is a filesystem client to mount and interact with directories and files located on a remote server or workstation over a normal ssh connection.
+     - `tree` - a recursive directory listing program that produces a depth-indented listing of files.
  - If you want to use additional utilities inside (e.g. [FMDMS](https://www.opensour.cc/ggcom/start?s%5B%5D=FMDMS#utilities) from [GGCom Bash Utilities](https://github.com/gotget/ggcom-bash-utils/)), mount a volume to `/root/bin/`, as it's set in the container's `$PATH` variable:
 	 - `-v /path/to/utilities/:/root/bin/`
  - Additional documents and notes are on my pet project, "[open-sourcey](https://www.opensour.cc/)"
