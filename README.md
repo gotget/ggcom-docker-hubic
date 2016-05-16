@@ -30,7 +30,7 @@ Initializing a credentials file:
  - Click on "Add an application"
  - For "Last name", I use the name of the server that I'm configuring this for.
  - For "Redirection domain", I use https://SERVERNAME.example.com/
-	 - (I literally use "example.com" for the domain name)
+     - (I literally use "example.com" for the domain name)
  - Click "OK", and the application will appear in your list.
  - Click on "Details" next to the newly-created entry for application.
  - Copy the Client ID from the text field to use below, for retrieving an access token.
@@ -86,7 +86,7 @@ If a failure occurs, then ideally, you'll receive a specific message indicating 
 
 ----------
 
-Launching a detached container:
+Manually launching the container, detached:
 -------------------------------
 
     sudo docker run \
@@ -99,6 +99,19 @@ Launching a detached container:
         -v /media/drive2/:/mnt/drive2/ \
         -v /media/drive3/:/mnt/drive3/ \
         gotget/hubic
+
+----------
+
+Automatically launching the container with [Upstart](https://en.wikipedia.org/wiki/Upstart):
+-------------------------------
+
+*3 simple steps:*
+
+ 1. Save [`docker-hubic.conf`](https://github.com/gotget/ggcom-docker-hubic/blob/master/launch/docker-hubic.conf) to `/etc/init/docker-hubic.conf`
+ 2. Modify where appropriate, for your needs.
+ 3. Run `/usr/bin/env service docker-hubic restart`
+
+You can monitor the output of this service's status at `/var/log/upstart/docker-hubic.log`
 
 ----------
 
@@ -142,17 +155,17 @@ Notes:
 
  - `hsync` is an alias to `rsync` with a long list of options for hubiC compatibility, that was setup with this Docker container, and resides in `~/.bashrc` inside of the Docker container.
  - Many extra utilities are packaged into the container:
-	 - `cURL` - command-line tool for transferring data using various protocols.
-	 - `Duply` (simple `duplicity`) - a frontend that simplifies the use of `Duplicity`.
-		 - (requires, and thus, includes `Duplicity`, which provides an encrypted, digitally signed, versioned, remote backup of files requiring little of a remote server)
-	 - `EncFS` - FUSE-based cryptographic filesystem.
-	 - `Nano` - a text editor for Unix-like computing systems or operating environments using a command line interface.
-	 - `rsnapshot` - a filesystem snapshot utility based on rsync (and similar to `Duplicity`, but with less built-in security, and geared more towards trusted environments).
-	 - `rsync` - a widely-used utility to keep copies of a file on two (or more) computer systems.
-	 - `SSHFS` - SSHFS (SSH Filesystem) is a filesystem client to mount and interact with directories and files located on a remote server or workstation over a normal ssh connection.
+     - `cURL` - command-line tool for transferring data using various protocols.
+     - `Duply` (simple `duplicity`) - a frontend that simplifies the use of `Duplicity`.
+         - (requires, and thus, includes `Duplicity`, which provides an encrypted, digitally signed, versioned, remote backup of files requiring little of a remote server)
+     - `EncFS` - FUSE-based cryptographic filesystem.
+     - `Nano` - a text editor for Unix-like computing systems or operating environments using a command line interface.
+     - `rsnapshot` - a filesystem snapshot utility based on rsync (and similar to `Duplicity`, but with less built-in security, and geared more towards trusted environments).
+     - `rsync` - a widely-used utility to keep copies of a file on two (or more) computer systems.
+     - `SSHFS` - SSHFS (SSH Filesystem) is a filesystem client to mount and interact with directories and files located on a remote server or workstation over a normal ssh connection.
      - `tree` - a recursive directory listing program that produces a depth-indented listing of files.
  - If you want to use additional utilities inside (e.g. [FMDMS](https://www.opensour.cc/ggcom/start?s%5B%5D=FMDMS#utilities) from [GGCom Bash Utilities](https://github.com/gotget/ggcom-bash-utils/)), mount a volume to `/root/bin/`, as it's set in the container's `$PATH` variable:
-	 - `-v /path/to/utilities/:/root/bin/`
+     - `-v /path/to/utilities/:/root/bin/`
  - Additional documents and notes are on my pet project, "[open-sourcey](https://www.opensour.cc/)"
 
 ----------
