@@ -154,6 +154,7 @@ Notes:
 ------
 
  - `hsync` is an alias to `rsync` with a long list of options for hubiC compatibility, that was setup with this Docker container, and resides in `~/.bashrc` inside of the Docker container.
+ - `hcp` is an alias to `rsync` with similar functionality to `hsync` but meant for non-destructive delivery to the destination (e.g. deleting files on the destination end, that aren't part of the source).
  - Many extra utilities are packaged into the container:
      - `cURL` - command-line tool for transferring data using various protocols.
      - `Duply` (simple `duplicity`) - a frontend that simplifies the use of `Duplicity`.
